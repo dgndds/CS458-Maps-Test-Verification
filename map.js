@@ -50,12 +50,31 @@ function initMap() {
 
     var lat = parseFloat(document.getElementById('locLat').value);
     var lng = parseFloat(document.getElementById('locLng').value);
-    var pos = new google.maps.LatLng(lat, lng);
     
-    locWindow.setPosition(pos);
-    locWindow.setContent("Latitude: " + pos.lat() + " Longitude: " + pos.lng());
-    locWindow.open(map);
-    map.setCenter(pos);
+    if(lat >= 85 || lat <= -85){
+      let latError = document.getElementById("latError");
+      latError.innerHTML = "Invalid Latitude Value";
+      latError.style.display = "block"
+    }else{
+      document.getElementById("latError").style.display = "none";
+    }
+
+    if(lng >= 180 || lng <= -180){
+      let lngError = document.getElementById("lngError");
+      lngError.innerHTML = "Invalid Longitude Value";
+      lngError.style.display = "block"
+    }else{
+      document.getElementById("lngError").style.display = "none";
+    }
+
+    if(lng <= 180 && lng >= -180 && lat <= 85 && lat >= -85){
+
+      var pos = new google.maps.LatLng(lat, lng);
+      locWindow.setPosition(pos);
+      locWindow.setContent("Latitude: " + pos.lat() + " Longitude: " + pos.lng());
+      locWindow.open(map);
+      map.setCenter(pos);
+    }
   });
 
   var distanceMoon = moonDistance(new Date());
