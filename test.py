@@ -14,6 +14,8 @@ driver.get("http://127.0.0.1:5500/index.html")
 
 latitudeInput = driver.find_element(By.ID,"locLat")
 longitudeInput = driver.find_element(By.ID,"locLng")
+currentLat = driver.find_element(By.ID,"currentLat")
+currentLng = driver.find_element(By.ID,"currentLng")
 locateButton = driver.find_element(By.ID,"locateButton")
 
 time.sleep(3)
@@ -101,7 +103,69 @@ else:
 
 time.sleep(2)
 
-# time.sleep(5)
+#======================== Test Case 2 ========================
+print("====== Test Case 2 ======")
+
+currentLatVal = float(currentLat.get_attribute("innerHTML")[len("Current Latitude : "):])
+currentLngVal = float(currentLng.get_attribute("innerHTML")[len("Current Longitude : "):])
+
+time.sleep(2)
+
+latitudeInput.clear()
+latitudeInput.send_keys("41.015137") 
+longitudeInput.clear()
+longitudeInput.send_keys("28.979530")
+locateButton.click()
+
+if(len(driver.find_elements(by=By.XPATH, value="//*[contains(text(), 'Your Location')]")) <= 0 or len(driver.find_elements(by=By.XPATH, value="//*[contains(text(), 'North Pole')]")) <= 0):
+    print("Current Location Label Conflict and North Pole Label Conflict Test 1: Failed")
+else:
+    print("Current Location Label Conflict and North Pole Label Conflict Test 1: Successful")
+
+time.sleep(2)
+
+longitudeInput.clear()
+latitudeInput.clear()
+latitudeInput.send_keys(currentLatVal)
+longitudeInput.send_keys(currentLngVal)
+locateButton.click()
+
+if(len(driver.find_elements(by=By.XPATH, value="//*[contains(text(), 'Your Location')]")) > 0 or len(driver.find_elements(by=By.XPATH, value="//*[contains(text(), 'North Pole')]")) <= 0):
+    print("Current Location Label Conflict and North Pole Label Conflict Test 2: Failed")
+else:
+    print("Current Location Label Conflict and North Pole Label Conflict Test 2: Successful")
+
+time.sleep(2)
+
+latitudeInput.clear()
+latitudeInput.send_keys("41.015137") 
+longitudeInput.clear()
+longitudeInput.send_keys("28.979530")
+locateButton.click()
+
+if(len(driver.find_elements(by=By.XPATH, value="//*[contains(text(), 'Your Location')]")) <= 0 or len(driver.find_elements(by=By.XPATH, value="//*[contains(text(), 'North Pole')]")) <= 0):
+    print("Current Location Label Conflict and North Pole Label Conflict Test 3: Failed")
+else:
+    print("Current Location Label Conflict and North Pole Label Conflict Test 3: Successful")
+
+time.sleep(2)
+
+longitudeInput.clear()
+latitudeInput.clear()
+latitudeInput.send_keys("72.68")
+longitudeInput.send_keys("80.65")
+locateButton.click()
+
+if(len(driver.find_elements(by=By.XPATH, value="//*[contains(text(), 'North Pole')]")) > 0 or len(driver.find_elements(by=By.XPATH, value="//*[contains(text(), 'Your Location')]")) <= 0):
+    print("Current Location Label Conflict and North Pole Label Conflict Test 4: Failed")
+else:
+    print("Current Location Label Conflict and North Pole Label Conflict Test 4: Successful")
+
+
+
+
+
+time.sleep(5)
 
 driver.close()
 

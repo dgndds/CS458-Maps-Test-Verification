@@ -1,5 +1,5 @@
 let map, locWindow, deviceWindow, poleWindow;
-var marker
+var marker, currentLoc
 
 
 function initMap() {
@@ -20,8 +20,11 @@ function initMap() {
           lng: position.coords.longitude,
         };
         
-        const currentLoc = pos;
+        currentLoc = pos;
         const northPole = {lat: 72.68, lng: 80.65};
+
+        document.getElementById("currentLat").innerHTML = "Current Latitude : " + pos.lat
+        document.getElementById("currentLng").innerHTML = "Current Longitude : " + pos.lng
 
         deviceWindow.setPosition(currentLoc);
         deviceWindow.setContent("Your Location");
@@ -32,10 +35,10 @@ function initMap() {
         poleWindow.open(map);
 
 
-        var mk1 = new google.maps.Marker({position: currentLoc, map: map});
-        var mk2 = new google.maps.Marker({position: northPole, map: map});
+        var marker1 = new google.maps.Marker({position: currentLoc, map: map});
+        var marker2 = new google.maps.Marker({position: northPole, map: map});
         var line = new google.maps.Polyline({path: [currentLoc, northPole], map: map});
-        var distance = haversine_distance(mk1, mk2);
+        var distance = haversineDistance(marker1, marker2);
         document.getElementById('distancePoints').innerHTML = "Distance between markers: " + distance.toFixed(2) + " km.";
         map.setCenter(pos)
     })
@@ -75,13 +78,33 @@ function initMap() {
       locWindow.open(map);
       map.setCenter(pos);
     }
+
+    if(deviceWindow && currentLoc){
+      if(currentLoc.lat == lat && currentLoc.lng == lng){
+        deviceWindow.close()
+      }else{
+        deviceWindow.setPosition(currentLoc);
+        deviceWindow.setContent("Your Location");
+        deviceWindow.open(map);
+      }
+    }
+
+    if(poleWindow){
+      if(lat == "72.68" && lng ==  "80.65"){
+        poleWindow.close()
+      }else{
+        poleWindow.setPosition({lat: 72.68, lng: 80.65});
+        poleWindow.setContent("North Pole");
+        poleWindow.open(map);
+      }
+    }
   });
 
   var distanceMoon = moonDistance(new Date());
   document.getElementById('distanceMoon').innerHTML = "Distance between Moon and Point: " + distanceMoon.toFixed(2) + " km.";
 }
 
-function haversine_distance(mk1, mk2) {
+function haversineDistance(mk1, mk2) {
   var R = 6371.0710;
   var rlat1 = mk1.position.lat() * (Math.PI/180);
   var rlat2 = mk2.position.lat() * (Math.PI/180);
