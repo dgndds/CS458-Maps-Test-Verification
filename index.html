@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <title>Maps</title>
+    </head>
+    <body>
+   
+        <script src="map.js"></script>
+
+        <form>
+            <label class="inputLabel" for="locLat">Latitude</label>
+            <input class="textInput" type="text" id="locLat" name="locLat"><br>
+            <label class="inputLabel" for="locLng">Longitude</label>
+            <input class="textInput" type="text" id="locLng" name="locLng"><br>
+            <input class="locateButton" type="submit" id="locateButton" value="Locate">
+          </form> 
+
+        <div id="map"></div>
+        <div id="distancePoints"></div>
+        <div id="distanceMoon"></div>
+
+
+        <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcDcLjenwdOi7kCnjrSto6VEamyYuudCc&callback=initMap&v=weekly"
+        defer
+      ></script>
+    </body>
+</html>
