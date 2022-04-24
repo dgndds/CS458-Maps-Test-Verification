@@ -30,6 +30,11 @@ body {
   height: 30px;
   cursor: pointer;
 }
+
+.distanceBox{
+  margin-top: 10px;
+  font: 400 20px Roboto, Arial, sans-serif;
+}
   
 
   
