@@ -21,6 +21,11 @@ locateButton = driver.find_element(By.ID,"locateButton")
 
 time.sleep(3)
 
+#Test two valid inputs and four invalid inputs
+#For invalid inputs corresponding error messages should shown on page
+#if both of the inputs are invalid, both of the error messages should show
+#Inputs should not accept any charachter other than dot and number
+#If invalid charachter is provided, simply rejects and stays empty
 #======================== Test Case 1 ========================
 print("====== Test Case 1 ======")
 
@@ -110,6 +115,11 @@ else:
 
 time.sleep(2)
 
+#There are already two points defined on the map which are labeled "North Pole" & "Your Location"
+#If exactly same location given as these infowindows, new infowindow for the input should close the corresponding existing infowindow
+#If  input is moved to a different place, close infowindow should reopen with same label
+#Tests by first moves to "Your Location", than to a different location than to "North Pole" and again than to a different location
+#Checks if existing infowindows are closed properly
 #======================== Test Case 2 ========================
 print("====== Test Case 2 ======")
 
@@ -172,6 +182,10 @@ if(len(driver.find_elements(by=By.XPATH, value="//*[contains(text(), 'North Pole
 else:
     print("Current Location Label Conflict and North Pole Label Conflict Test 4: Successful")
 
+#Checks if distance between current location of the device and the north pole exists
+#if it does, than compares to possible min and max values of such distance
+#min and max values are gathered using Google Maps by taking distance between closest and farthest points of Ankara and North Pole
+#Tests if shown value is in between min and max value range
 #======================== Test Case 3 ========================
 print("====== Test Case 3 ======")
 
@@ -192,6 +206,10 @@ else:
         print("Distance Between Two Points Value Test: Failed")
         sys.exit()
 
+#Checks if distance between current location of the device and the Moon exists
+#if it does, than compares to possible min and max values of such distance
+#Possible min and max values are gathered using Google
+#Tests if shown value is in between min and max value range
 #======================== Test Case 4 ========================
 print("====== Test Case 4 ======")
 
@@ -212,6 +230,9 @@ else:
         print("Distance to Moon Value Test: Failed")
         sys.exit()
 
+#Rapidly enters 10 different random valid locations to the map every 0.5 seconds
+#Tests if previously opened infowindows closed properly when a new input is submitted
+#At the end of the test only the infowindow of the last input should remain
 #======================== Test Case 5 ========================
 print("====== Test Case 5 ======")
 prevLats = []
