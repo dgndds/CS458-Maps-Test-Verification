@@ -38,8 +38,21 @@ body {
 
 #latError{
   display: none;
+  font: 900 20px Roboto, Arial, sans-serif;
+  background-color: gold;
+  margin-left: 5px;
+  padding-left: 4px;
 }
 
 #lngError{
   display: none;
+  font: 900 20px Roboto, Arial, sans-serif;
+  margin: 5px 0 10px 5px;
+  padding-left: 4px;
+  background-color: gold;
+}
+
+#currentLat,#currentLng{
+  margin: 5px 0 10px 5px;
+  font: 200 12px Roboto, Arial, sans-serif;
 }
